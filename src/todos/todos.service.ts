@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { Todo, Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma.service';
+
+// const prisma = new PrismaClient();
 
 @Injectable()
 export class TodosService {
+  constructor(private prisma: PrismaService) {}
+
   create(createTodoDto: CreateTodoDto) {
-    return `This action adds a new todo: ${createTodoDto.todo} is_done ${createTodoDto.is_done}`;
+    return `This action adds a new todo: ${createTodoDto.todo} is_done ${createTodoDto.isCompleted}`;
   }
 
   findAll() {
@@ -17,7 +23,7 @@ export class TodosService {
   }
 
   update(id: number, updateTodoDto: UpdateTodoDto) {
-    return `This action updates a #${id} todo: ${updateTodoDto.todo} is_done ${updateTodoDto.is_done}`;
+    return `This action updates a #${id} todo: ${updateTodoDto.todo} is_done ${updateTodoDto.isCompleted}`;
   }
 
   remove(id: number) {
